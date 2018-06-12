@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,8 @@ public class ChooseAreaFragment extends Fragment {
     private TextView titleText;
 
     private Button backButton;
+    private Button setButton;
+    private Button nightButton;
 
     private ListView listView;
 
@@ -90,6 +94,8 @@ public class ChooseAreaFragment extends Fragment {
         View view = inflater.inflate(R.layout.choose_area, container, false);
         titleText = (TextView) view.findViewById(R.id.title_text);
         backButton = (Button) view.findViewById(R.id.back_button);
+        setButton = (Button) view.findViewById(R.id.button_set);
+        nightButton = (Button) view.findViewById(R.id.button_night);
         listView = (ListView) view.findViewById(R.id.list_view);
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
@@ -134,7 +140,30 @@ public class ChooseAreaFragment extends Fragment {
                 }
             }
         });
+
+        setButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new SetFragment());
+            }
+        });
+
+        nightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();
+
+            }
+        });
         queryProvinces();
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction  transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.choose_area_fragment,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     /**

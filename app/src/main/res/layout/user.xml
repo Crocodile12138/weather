@@ -3,21 +3,47 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary" >
+    android:background="#fff" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+        <TextView
+            android:id="@+id/title_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#fff"
+            android:text="酷欧天气"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_back"/>
+
+    </RelativeLayout>
 
     <TextView
         android:id = "@+id/text_user"
         android:layout_height = "wrap_content"
         android:layout_width = "wrap_content"
+        android:paddingTop="60dp"
         android:gravity = "center"
         android:textSize = "30dp"
-        android:textColor = "#00ff00"
         android:text = "用户名:" />
 
     <EditText
         android:id = "@+id/edit_user"
         android:layout_height = "wrap_content"
         android:layout_width = "match_parent"
+        android:paddingTop="70dp"
         android:layout_toRightOf = "@+id/text_user"
         android:hint = "请输入用户名"
         android:maxLines = "1" />
@@ -28,8 +54,7 @@
         android:layout_width ="wrap_content"
         android:layout_below = "@+id/text_user"
         android:textSize = "30dp"
-        android:textColor = "#00ff00"
-        android:text = "密     码:" />
+        android:text = "密    码:" />
 
     <EditText
         android:id = "@+id/edit_password"

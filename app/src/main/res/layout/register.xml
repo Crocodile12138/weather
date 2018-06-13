@@ -5,11 +5,36 @@
     android:layout_height="match_parent"
     android:background="#fff" >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary">
+
+        <TextView
+            android:id="@+id/title_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#fff"
+            android:text="酷欧天气"
+            android:textSize="20sp"/>
+
+        <Button
+            android:id="@+id/back_button"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/ic_back"/>
+
+    </RelativeLayout>
+
     <TextView
         android:id = "@+id/register_user"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="60dp"
         android:text="新  用  户 :"
         android:textSize="30sp"/>
 
@@ -17,10 +42,10 @@
         android:id = "@+id/edit_yhm"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginTop="60dp"
         android:layout_toRightOf="@id/register_user"
         android:maxLines="1"
-        android:hint="请输入新用户名"
-        android:textSize="30sp" />
+        android:hint="请输入新用户名" />
 
     <TextView
         android:id = "@+id/register_password"
@@ -28,25 +53,25 @@
         android:layout_width="wrap_content"
         android:layout_below="@id/register_user"
         android:layout_marginTop="10dp"
-        android:text="密         码 :"
+        android:text="密        码 :"
         android:textSize="30sp"/>
 
     <EditText
         android:id = "@+id/edit_mm"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/register_user"
         android:layout_toRightOf="@id/register_password"
         android:maxLines="1"
-        android:hint="请输入密码"
-        android:textSize="30sp" />
+        android:hint="请输入密码" />
 
     <TextView
         android:id = "@+id/password_qr"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_below="@id/register_password"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:text="确认密码:"
         android:textSize="30sp"/>
 
@@ -54,18 +79,18 @@
         android:id = "@+id/mm_qr"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/register_password"
         android:layout_toRightOf="@id/password_qr"
         android:maxLines="1"
-        android:hint="请再次输入密码"
-        android:textSize="30sp" />
+        android:hint="请再次输入密码" />
 
     <Button
         android:id = "@+id/button"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/password_qr"
-        android:background="#8000"
         android:text="确认"
         android:textSize="30sp" />
 </RelativeLayout>

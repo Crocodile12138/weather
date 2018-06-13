@@ -1,8 +1,6 @@
 package com.example.hasee.weather;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.hasee.weather.db.userinfo;
 
 public class registerFragment extends Fragment implements View.OnClickListener{
@@ -20,6 +17,8 @@ public class registerFragment extends Fragment implements View.OnClickListener{
     private EditText edit_mm;
     private EditText mm_qr;
     private Button button;
+    private Button backbutton;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.register,container,false);
@@ -28,8 +27,17 @@ public class registerFragment extends Fragment implements View.OnClickListener{
         edit_mm = (EditText) view.findViewById(R.id.edit_mm);
         mm_qr = (EditText) view.findViewById(R.id.mm_qr);
         button = (Button) view.findViewById(R.id.button);
+        backbutton = (Button) view.findViewById(R.id.back_button);
 
         return view;
+    }
+
+    @Override
+    public void onActivityCreated( Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        button.setOnClickListener(this);
+        backbutton.setOnClickListener(this);
     }
 
     @Override
@@ -37,7 +45,11 @@ public class registerFragment extends Fragment implements View.OnClickListener{
         String input_yhm = edit_yhm.getText().toString();
         String input_mm = edit_mm.getText().toString();
         String input_qrmm = mm_qr.getText().toString();
+
         switch (v.getId()) {
+            case R.id.back_button:
+                replaceFragment(new UserFragment());
+                break;
             case R.id.button:
                 if(input_mm.equals(input_qrmm)) {
                     userinfo userinfo = new userinfo();
@@ -58,7 +70,7 @@ public class registerFragment extends Fragment implements View.OnClickListener{
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.choose_area_fragment, fragment);
-        transaction.addToBackStack(null);
+       /* transaction.addToBackStack(null);*/
         transaction.commit();
     }
 

@@ -4,6 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
+/*
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+*/
+
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -33,7 +40,7 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class ChooseAreaFragment extends Fragment {
+public class ChooseAreaFragment extends Fragment implements View.OnClickListener  {
 
     private static final String TAG = "ChooseAreaFragment";
 
@@ -93,9 +100,14 @@ public class ChooseAreaFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.choose_area, container, false);
         titleText = (TextView) view.findViewById(R.id.title_text);
+
         backButton = (Button) view.findViewById(R.id.back_button);
         setButton = (Button) view.findViewById(R.id.button_set);
         nightButton = (Button) view.findViewById(R.id.button_night);
+
+        setButton.setVisibility(View.VISIBLE);
+        nightButton.setVisibility(View.VISIBLE);
+
         listView = (ListView) view.findViewById(R.id.list_view);
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, dataList);
         listView.setAdapter(adapter);
@@ -130,7 +142,11 @@ public class ChooseAreaFragment extends Fragment {
                 }
             }
         });
-        backButton.setOnClickListener(new View.OnClickListener() {
+
+        backButton.setOnClickListener(this);
+        setButton.setOnClickListener(this);
+        nightButton.setOnClickListener(this);
+        /*backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (currentLevel == LEVEL_COUNTY) {
@@ -139,9 +155,9 @@ public class ChooseAreaFragment extends Fragment {
                     queryProvinces();
                 }
             }
-        });
+        });*/
 
-        setButton.setOnClickListener(new View.OnClickListener() {
+        /*setButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragment(new SetFragment());
@@ -154,13 +170,34 @@ public class ChooseAreaFragment extends Fragment {
                 Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
         queryProvinces();
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back_button:
+                if (currentLevel == LEVEL_COUNTY) {
+                    queryCities();
+                } else if (currentLevel == LEVEL_CITY) {
+                    queryProvinces();
+                }
+                break;
+            case R.id.button_set:
+                setButton.setVisibility(View.GONE);
+                nightButton.setVisibility(View.GONE);
+                replaceFragment(new SetFragment());
+                break;
+            case R.id.button_night:
+                Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
     private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction  transaction = fragmentManager.beginTransaction();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.choose_area_fragment,fragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -172,6 +209,10 @@ public class ChooseAreaFragment extends Fragment {
     private void queryProvinces() {
         titleText.setText("中国");
         backButton.setVisibility(View.GONE);
+
+        setButton.setVisibility(View.VISIBLE);
+        nightButton.setVisibility(View.VISIBLE);
+
         provinceList = DataSupport.findAll(Province.class);
         if (provinceList.size() > 0) {
             dataList.clear();
@@ -193,6 +234,8 @@ public class ChooseAreaFragment extends Fragment {
     private void queryCities() {
         titleText.setText(selectedProvince.getProvinceName());
         backButton.setVisibility(View.VISIBLE);
+        setButton.setVisibility(View.GONE);
+        nightButton.setVisibility(View.GONE);
         cityList = DataSupport.where("provinceid = ?", String.valueOf(selectedProvince.getId())).find(City.class);
         if (cityList.size() > 0) {
             dataList.clear();
@@ -215,6 +258,8 @@ public class ChooseAreaFragment extends Fragment {
     private void queryCounties() {
         titleText.setText(selectedCity.getCityName());
         backButton.setVisibility(View.VISIBLE);
+        setButton.setVisibility(View.GONE);
+        nightButton.setVisibility(View.GONE);
         countyList = DataSupport.where("cityid = ?", String.valueOf(selectedCity.getId())).find(County.class);
         if (countyList.size() > 0) {
             dataList.clear();

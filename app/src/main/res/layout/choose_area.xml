@@ -35,23 +35,25 @@
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="40dp" />
+        android:layout_marginTop="52dp" />
 
         <Button
             android:id = "@+id/button_set"
             android:layout_height="40dp"
-            android:layout_width="wrap_content"
+            android:layout_width="153dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
+            android:background="@color/colorPrimary"
             android:text="设置"
             android:textSize="17sp" />
 
         <Button
             android:id = "@+id/button_night"
             android:layout_height="40dp"
-            android:layout_width="wrap_content"
+            android:layout_width="153dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:background="@color/colorPrimary"
             android:text="夜间"
             android:textSize="17sp" />
 

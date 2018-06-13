@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary" >
+
+    <TextView
+        android:id = "@+id/text_user"
+        android:layout_height = "wrap_content"
+        android:layout_width = "wrap_content"
+        android:gravity = "center"
+        android:textSize = "30dp"
+        android:textColor = "#00ff00"
+        android:text = "用户名:" />
+
+    <EditText
+        android:id = "@+id/edit_user"
+        android:layout_height = "wrap_content"
+        android:layout_width = "match_parent"
+        android:layout_toRightOf = "@+id/text_user"
+        android:hint = "学号或者姓名"
+        android:maxLines = "1" />
+
+    <TextView
+        android:id = "@+id/text_password"
+        android:layout_height = "wrap_content"
+        android:layout_width ="wrap_content"
+        android:layout_below = "@+id/text_user"
+        android:textSize = "30dp"
+        android:textColor = "#00ff00"
+        android:text = "密     码:" />
+
+    <EditText
+        android:id = "@+id/edit_password"
+        android:layout_height = "wrap_content"
+        android:layout_width = "match_parent"
+        android:layout_below = "@+id/edit_user"
+        android:layout_toRightOf="@id/text_password"
+        android:inputType = "textPassword"
+        android:hint = "请输入密码"
+        android:maxLines = "1" />
+
+    <CheckBox
+        android:id = "@+id/remember_pass"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_below="@id/text_password" />
+
+    <TextView
+        android:id = "@+id/check"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "Remember password"
+        android:textSize = "18dp"
+        android:layout_marginTop = "3dp"
+        android:layout_below = "@id/text_password"
+        android:layout_toRightOf = "@id/remember_pass" />
+
+    <Button
+        android:id = "@+id/button_dl"
+        android:layout_height = "wrap_content"
+        android:layout_width = "wrap_content"
+        android:layout_below = "@+id/remember_pass"
+        android:layout_toRightOf="@id/text_password"
+        android:text = "登陆"
+        android:textAllCaps = "false" />  <!--使文本框大写锁定失效-->
+
+    <Button
+        android:id = "@+id/button_zhc"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_below = "@+id/remember_pass"
+        android:layout_toRightOf = "@+id/button_dl"
+        android:text = "注册"
+        android:textAllCaps = "false" />
+
+
+</RelativeLayout>

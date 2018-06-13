@@ -44,7 +44,7 @@ public class SetFragment extends Fragment implements View.OnClickListener {
                 replaceFragment(new ChooseAreaFragment());
                 break;
             case R.id.button_log:
-                Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();
+                replaceFragment(new UserFragment());
                 break;
             case R.id.button_update:
                 Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();

@@ -19,7 +19,7 @@
         android:layout_height = "wrap_content"
         android:layout_width = "match_parent"
         android:layout_toRightOf = "@+id/text_user"
-        android:hint = "学号或者姓名"
+        android:hint = "请输入用户名"
         android:maxLines = "1" />
 
     <TextView

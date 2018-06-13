@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff" >
+
+    <TextView
+        android:id = "@+id/register_user"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="新  用  户 :"
+        android:textSize="30sp"/>
+
+    <EditText
+        android:id = "@+id/edit_yhm"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@id/register_user"
+        android:maxLines="1"
+        android:hint="请输入新用户名"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id = "@+id/register_password"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/register_user"
+        android:layout_marginTop="10dp"
+        android:text="密         码 :"
+        android:textSize="30sp"/>
+
+    <EditText
+        android:id = "@+id/edit_mm"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/register_user"
+        android:layout_toRightOf="@id/register_password"
+        android:maxLines="1"
+        android:hint="请输入密码"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id = "@+id/password_qr"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/register_password"
+        android:layout_marginTop="12dp"
+        android:text="确认密码:"
+        android:textSize="30sp"/>
+
+    <EditText
+        android:id = "@+id/mm_qr"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/register_password"
+        android:layout_toRightOf="@id/password_qr"
+        android:maxLines="1"
+        android:hint="请再次输入密码"
+        android:textSize="30sp" />
+
+    <Button
+        android:id = "@+id/button"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@id/password_qr"
+        android:background="#8000"
+        android:text="确认"
+        android:textSize="30sp" />
+</RelativeLayout>

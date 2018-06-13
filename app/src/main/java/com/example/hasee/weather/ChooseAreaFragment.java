@@ -146,31 +146,6 @@ public class ChooseAreaFragment extends Fragment implements View.OnClickListener
         backButton.setOnClickListener(this);
         setButton.setOnClickListener(this);
         nightButton.setOnClickListener(this);
-        /*backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (currentLevel == LEVEL_COUNTY) {
-                    queryCities();
-                } else if (currentLevel == LEVEL_CITY) {
-                    queryProvinces();
-                }
-            }
-        });*/
-
-        /*setButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                replaceFragment(new SetFragment());
-            }
-        });
-
-        nightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
         queryProvinces();
     }
 

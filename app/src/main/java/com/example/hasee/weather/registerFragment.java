@@ -70,7 +70,6 @@ public class registerFragment extends Fragment implements View.OnClickListener{
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.choose_area_fragment, fragment);
-       /* transaction.addToBackStack(null);*/
         transaction.commit();
     }
 

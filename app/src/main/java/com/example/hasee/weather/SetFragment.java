@@ -41,11 +41,11 @@ public class SetFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
-                replaceFragment(new ChooseAreaFragment());
+                replaceFragment(new ChooseAreaFragment(),0);
                 /*Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 break;
             case R.id.button_log:
-                replaceFragment(new UserFragment());
+                replaceFragment(new UserFragment(),1);
                /* Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 break;
             case R.id.button_update:
@@ -56,11 +56,13 @@ public class SetFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment,int i) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.choose_area_fragment,fragment);
-        transaction.addToBackStack(null);
+        if(i == 1) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
 }

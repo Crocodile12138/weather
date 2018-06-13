@@ -68,7 +68,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         String input_mm = edit_password.getText().toString();
         switch (v.getId()) {
             case R.id.back_button:
-                replaceFragment(new SetFragment());
+                replaceFragment(new SetFragment(),0);
                 break;
             case R.id.button_dl:
                 List<userinfo> userinfos = DataSupport.findAll(userinfo.class);
@@ -84,7 +84,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                                 editor.clear();
                             }
                             editor.apply();
-                            replaceFragment(new ChooseAreaFragment());
+                            replaceFragment(new ChooseAreaFragment(),0);
                         }else {
                             Toast.makeText(getContext(),"密码错误!",Toast.LENGTH_SHORT).show();
                         }
@@ -95,7 +95,7 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                /* Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 break;
             case R.id.button_zhc:
-                replaceFragment(new registerFragment());
+                replaceFragment(new registerFragment(),1);
                /* Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 break;
             default:
@@ -103,11 +103,13 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         }
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment,int i) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.choose_area_fragment,fragment);
-        transaction.addToBackStack(null);
+        if(i == 1) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
 }

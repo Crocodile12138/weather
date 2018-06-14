@@ -1,5 +1,6 @@
 package com.example.hasee.weather.util;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 
 import com.example.hasee.weather.db.City;
@@ -12,7 +13,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+
 public class Utility {
+
+    public static byte[] img(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG,100,baos);
+        return baos.toByteArray();
+    }
 
     /**
      * 解析和处理服务器返回的省级数据

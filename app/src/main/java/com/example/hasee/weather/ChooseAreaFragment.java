@@ -62,6 +62,7 @@ public class ChooseAreaFragment extends Fragment implements View.OnClickListener
 
     private ArrayAdapter<String> adapter;
 
+
     private List<String> dataList = new ArrayList<>();
 
     /**
@@ -93,7 +94,6 @@ public class ChooseAreaFragment extends Fragment implements View.OnClickListener
      * 当前选中的级别
      */
     private int currentLevel;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -160,9 +160,11 @@ public class ChooseAreaFragment extends Fragment implements View.OnClickListener
                 }
                 break;
             case R.id.button_set:
-                setButton.setVisibility(View.GONE);
+                /*setButton.setVisibility(View.GONE);
                 nightButton.setVisibility(View.GONE);
-                replaceFragment(new SetFragment());
+                replaceFragment(new SetFragment());*/
+                Intent intent_set = new Intent(getContext(),SetActivity.class);
+                startActivity(intent_set);
                 break;
             case R.id.button_night:
                 Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();
@@ -170,13 +172,13 @@ public class ChooseAreaFragment extends Fragment implements View.OnClickListener
         }
     }
 
-    private void replaceFragment(Fragment fragment) {
+    /*private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.choose_area_fragment,fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
+    }*/
 
     /**
      * 查询全国所有的省，优先从数据库查询，如果没有查询到再去服务器上查询。

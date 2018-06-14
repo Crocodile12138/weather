@@ -31,10 +31,30 @@
     </RelativeLayout>
 
     <TextView
+        android:id = "@+id/position"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp" />
+
+    <ImageView
+        android:id = "@+id/head"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/contact3"
+        android:layout_marginTop="60dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id = "@+id/recycler_view"
+        android:layout_height="100dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="60dp" />
+
+    <TextView
         android:id = "@+id/register_user"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="160dp"
         android:text="新  用  户 :"
         android:textSize="30sp"/>
 
@@ -42,7 +62,7 @@
         android:id = "@+id/edit_yhm"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="160dp"
         android:layout_toRightOf="@id/register_user"
         android:maxLines="1"
         android:hint="请输入新用户名" />

@@ -1,5 +1,6 @@
 package com.example.hasee.weather;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -41,11 +42,15 @@ public class SetFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_button:
-                replaceFragment(new ChooseAreaFragment(),0);
+                /*replaceFragment(new ChooseAreaFragment(),0);*/
+                Intent intent_back = new Intent(getContext(), MainActivity.class);
+                startActivity(intent_back);
                 /*Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 break;
             case R.id.button_log:
-                replaceFragment(new UserFragment(),1);
+                /*replaceFragment(new UserFragment(),1);*/
+                Intent intent_log = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent_log);
                /* Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 break;
             case R.id.button_update:
@@ -56,7 +61,7 @@ public class SetFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    private void replaceFragment(Fragment fragment,int i) {
+    /*private void replaceFragment(Fragment fragment,int i) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.choose_area_fragment,fragment);
@@ -64,5 +69,5 @@ public class SetFragment extends Fragment implements View.OnClickListener {
             transaction.addToBackStack(null);
         }
         transaction.commit();
-    }
+    }*/
 }

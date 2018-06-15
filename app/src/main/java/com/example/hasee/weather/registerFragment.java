@@ -23,6 +23,8 @@ import com.example.hasee.weather.db.userinfo;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.valueOf;
+
 public class registerFragment extends Fragment implements View.OnClickListener{
     private TextView textView;
     private EditText edit_yhm;
@@ -31,10 +33,13 @@ public class registerFragment extends Fragment implements View.OnClickListener{
     private Button button;
     private Button backbutton;
     private RecyclerView recyclerView;
-    private ArrayAdapter<HeadImageAdapter.ViewHolder> arrayAdapter;
+    private HeadImageAdapter adapter;
     private List<HeadImage> headimageList = new ArrayList<>();
     private ImageView head;
-    private String position;
+    private int position;
+    private int ImageViewId;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,15 +52,11 @@ public class registerFragment extends Fragment implements View.OnClickListener{
         backbutton = (Button) view.findViewById(R.id.back_button);
         head = (ImageView) view.findViewById(R.id.head);
 
-       /* Log.d("MainActivity","\n\n\n11111111111111111111111111111111111111111111111\n\n\n");*/
-
         initHeadImage();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recyclerView.setLayoutManager(layoutManager);
-        HeadImageAdapter adapter = new HeadImageAdapter(headimageList);
-        recyclerView.setAdapter(adapter);
+
+
+
 
         return view;
     }
@@ -63,6 +64,12 @@ public class registerFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityCreated( Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new HeadImageAdapter(headimageList);
+        recyclerView.setAdapter(adapter);
 
         button.setOnClickListener(this);
         backbutton.setOnClickListener(this);
@@ -79,15 +86,17 @@ public class registerFragment extends Fragment implements View.OnClickListener{
                 replaceFragment(new UserFragment());
                 break;
             case R.id.button:
-                /*arrayAdapter = new HeadImageAdapter();*/
-                position = textView.getText().toString();
-                /*for(int i = 0;i < headimageList.size();i++) {
-                    if(head.)
-                }*/
+
+                position = adapter.getSelectedPosition();
+                textView.setText(position);
+
+                /*int num = valueOf(position).intValue();*/
+                ImageViewId = adapter.getImageId(position);
                 if(input_mm.equals(input_qrmm)) {
                     userinfo userinfo = new userinfo(position);
                     userinfo.setName(input_yhm);
                     userinfo.setPassword(input_mm);
+                    userinfo.setImageViewId(ImageViewId);
                     userinfo.setState("out");
                     userinfo.save();
                     replaceFragment(new UserFragment());

@@ -9,7 +9,7 @@
         <mapping class="com.example.hasee.weather.db.Province" />
         <mapping class="com.example.hasee.weather.db.City" />
         <mapping class="com.example.hasee.weather.db.County" />
-        <mapping calss="com.example.hasee.weather.db.userinfo" />
+        <mapping class="com.example.hasee.weather.db.userinfo" />
     </list>
 
 </litepal>

@@ -48,10 +48,8 @@ public class SetFragment extends Fragment implements View.OnClickListener {
                 /*Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 break;
             case R.id.button_log:
-                /*replaceFragment(new UserFragment(),1);*/
                 Intent intent_log = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent_log);
-               /* Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 break;
             case R.id.button_update:
                 Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();
@@ -60,14 +58,4 @@ public class SetFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
-
-    /*private void replaceFragment(Fragment fragment,int i) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.choose_area_fragment,fragment);
-        if(i == 1) {
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
-    }*/
 }

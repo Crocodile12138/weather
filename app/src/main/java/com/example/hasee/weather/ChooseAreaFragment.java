@@ -160,9 +160,6 @@ public class ChooseAreaFragment extends Fragment implements View.OnClickListener
                 }
                 break;
             case R.id.button_set:
-                /*setButton.setVisibility(View.GONE);
-                nightButton.setVisibility(View.GONE);
-                replaceFragment(new SetFragment());*/
                 Intent intent_set = new Intent(getContext(),SetActivity.class);
                 startActivity(intent_set);
                 break;
@@ -171,14 +168,6 @@ public class ChooseAreaFragment extends Fragment implements View.OnClickListener
                 break;
         }
     }
-
-    /*private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.choose_area_fragment,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }*/
 
     /**
      * 查询全国所有的省，优先从数据库查询，如果没有查询到再去服务器上查询。

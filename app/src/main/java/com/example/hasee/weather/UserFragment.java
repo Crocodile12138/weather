@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.hasee.weather.db.userinfo;
 import org.litepal.crud.DataSupport;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserFragment extends Fragment implements View.OnClickListener{
@@ -30,8 +31,11 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private CheckBox rememberPass;
-    /*private TextView textView;*/
-    private String position;
+    private int position;
+    private TextView textView;
+
+    private HeadImageAdapter adapter;
+    private List<HeadImage> headimageList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +49,12 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         button_zhc = (Button) view.findViewById(R.id.button_zhc);
         nav_button = (Button) view.findViewById(R.id.nav_button);
         /*textView = (TextView) view.findViewById(R.id.position);*/
+        textView = (TextView) view.findViewById(R.id.position);
+
+        adapter = new HeadImageAdapter(headimageList);
+
+        button_dl.setVisibility(View.VISIBLE);
+        button_zhc.setVisibility(View.VISIBLE);
 
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         boolean isRemember = pref.getBoolean("remember_password",false);
@@ -77,13 +87,9 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 replaceFragment(new SetFragment(),0);
                 break;
             case R.id.button_dl:
-                /*position = textView.getText().toString();*/
-                /*int num = Integer.valueOf(position).intValue();*/
                 List<userinfo> userinfos = DataSupport.findAll(userinfo.class);
                 for(userinfo userinfo:userinfos) {
                     position = userinfo.getPosition();
-                    int num = Integer.valueOf(position).intValue() + 3;
-                    String str = "R.drawable." + String.valueOf(num);
                     if(userinfo.getName().equals(input_yhm)) {
                         if(userinfo.getPassword().equals(input_mm)) {
                             editor = pref.edit();
@@ -94,12 +100,12 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                             }else {
                                 editor.clear();
                             }
+
                             editor.apply();
                             userinfo.setState("IN");
                            /* nav_button.setBackground(R.id.head);*/
                           /* nav_button.setBackgroundResource(getId());*/
-                            nav_button.setBackgroundResource(Integer.parseInt(str));
-                            /*replaceFragment(new ChooseAreaFragment(),0);*/
+                            nav_button.setBackgroundResource(adapter.getImageId(position));
                             Intent intent_dl = new Intent(getContext(), MainActivity.class);
                             startActivity(intent_dl);
                         }else {
@@ -111,6 +117,8 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.button_zhc:
+                button_dl.setVisibility(View.GONE);
+                button_zhc.setVisibility(View.GONE);
                 replaceFragment(new registerFragment(),1);
                 break;
             default:

@@ -6,7 +6,8 @@ public class userinfo extends DataSupport {
     private String name;
     private String password;
     private String state;
-    private String position;
+    private int ImageViewId;
+    private int position;
    /* private byte[] head;
 
     public userinfo(byte[] head) {
@@ -21,13 +22,21 @@ public class userinfo extends DataSupport {
     public void setHead(byte[] head) {
         this.head = head;
     }*/
-   public userinfo(String position) {
+   public userinfo(int position) {
        this.position = position;
    }
 
-   public String getPosition() {
-       return position;
-   }
+    public int getPosition() {
+        return position;
+    }
+
+    public void setImageViewId(int imageViewId) {
+        ImageViewId = imageViewId;
+    }
+
+    public int getImageViewId() {
+        return ImageViewId;
+    }
 
     public String getName() {
         return name;

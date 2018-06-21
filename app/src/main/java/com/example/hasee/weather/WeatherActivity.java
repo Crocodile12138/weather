@@ -1,17 +1,27 @@
 package com.example.hasee.weather;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Picture;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,13 +30,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.hasee.weather.db.userinfo;
 import com.example.hasee.weather.gson.Forecast;
 import com.example.hasee.weather.gson.Weather;
 import com.example.hasee.weather.service.AutoUpdateService;
 import com.example.hasee.weather.util.HttpUtil;
 import com.example.hasee.weather.util.Utility;
 
+import org.litepal.crud.DataSupport;
+
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -40,7 +58,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     private ScrollView weatherLayout;
 
-    private Button navButton;
+    private ImageView head;
 
     private TextView titleCity;
 
@@ -65,6 +83,80 @@ public class WeatherActivity extends AppCompatActivity {
     private ImageView bingPicImg;
 
     private String mWeatherId;
+    private  File file;
+    byte[] headPicture;
+    List<userinfo> userinfoList = DataSupport.findAll(userinfo.class);
+
+   /* 网页截屏
+    public static Bitmap captureWebView1(WebView webView) {
+        Picture snapShot = webView.capturePicture();
+        Bitmap bmp = Bitmap.createBitmap(snapShot.getWidth(),snapShot.getHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bmp);
+        snapShot.draw(canvas);
+        return bmp;
+    }*/
+
+    /*活动截屏*/
+    @SuppressLint("NewApi")
+    private Bitmap captureScreen(Activity context) {
+        View cv = context.getWindow().getDecorView();
+        cv.setDrawingCacheEnabled(true);
+        cv.buildDrawingCache();
+        Bitmap bmp = cv.getDrawingCache();
+        if(bmp == null) {
+            Log.d("WeatherActivity","bmp null");
+            return null;
+        }
+
+        bmp.setHasAlpha(false);
+        bmp.prepareToDraw();
+        return bmp;
+    }
+
+   //* Bitmap 转file*//*
+    public void saveBitmapFile(Bitmap bitmap) {
+        file = new File(getExternalCacheDir(),"OutPut.jpg");//将要保存图片的路径
+        try {
+            if(file.exists()) {
+                file.delete();
+            }
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+            bos.flush();
+            bos.close();
+       } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+      File 转 Uri
+     */
+    public Uri fileTurnUri(File file) {
+        return  Uri.fromFile(file);
+    }
+
+    /*分享图片*/
+    private void shareImg(String dlgTitle, String subject, String content, Uri uri) {
+        if(uri == null) {
+            Log.d("WeatherActivity.this","uri null");
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        if(subject != null && !"".equals(subject)) {
+            intent.putExtra(Intent.EXTRA_SUBJECT,subject);
+        }
+        if(content != null && !"".equals(content)) {
+            intent.putExtra(Intent.EXTRA_TEXT,content);
+        }
+        if(dlgTitle != null && !"".equals(dlgTitle)) {
+            startActivity(Intent.createChooser(intent,dlgTitle));
+        } else {
+            startActivity(intent);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,13 +184,30 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navButton = (Button) findViewById(R.id.nav_button);
+        head = (ImageView) findViewById(R.id.head_picture);
+
+        if (userinfoList.size() > 0) {
+            Intent intent = getIntent();
+            headPicture = intent.getByteArrayExtra("headPicture");
+            Bitmap bitmap = BitmapFactory.decodeByteArray(headPicture, 0, headPicture.length);
+            head.setImageBitmap(bitmap);
+        }
+
+        /*List<userinfo> userinfos = DataSupport.findAll(userinfo.class);
+        for(userinfo user:userinfos) {
+            if(user.getState().equals("in")) {
+                headPicture = user.getHead();
+                Bitmap bitmap = BitmapFactory.decodeByteArray(headPicture,0,headPicture.length);
+                head.setImageBitmap(bitmap);
+            }
+        }*/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
         if (weatherString != null) {
             // 有缓存时直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
             mWeatherId = weather.basic.weatherId;
+           /* Log.d("WeatherActivity.this","mWeatherId = " + mWeatherId);*/
             showWeatherInfo(weather);
         } else {
             // 无缓存时去服务器查询天气
@@ -112,10 +221,17 @@ public class WeatherActivity extends AppCompatActivity {
                 requestWeather(mWeatherId);
             }
         });
-        navButton.setOnClickListener(new View.OnClickListener() {
+        head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+        head.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(WeatherActivity.this,"you longClick imageView",Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
         String bingPic = prefs.getString("bing_pic", null);
@@ -124,6 +240,28 @@ public class WeatherActivity extends AppCompatActivity {
         } else {
             loadBingPic();
         }
+
+        titleCity.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                int i = 0;
+                for(userinfo userinfo:userinfoList) {
+                    if(userinfo.getState().equals("in")) {
+                        Bitmap bmp = captureScreen(WeatherActivity.this);
+                        /*Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(), bmp, null,null)) ;*/
+                        saveBitmapFile(bmp);
+                        if (file != null && file.exists()) {
+                            shareImg("分享", "分享", "分享", fileTurnUri(file));
+                        }
+                    }
+                    i++;
+                }
+                if(i == userinfoList.size()) {
+                    Toast.makeText(WeatherActivity.this, "请先登陆!", Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
     }
 
     /**

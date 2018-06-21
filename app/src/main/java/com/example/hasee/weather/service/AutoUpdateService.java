@@ -14,11 +14,16 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.hasee.weather.R;
 import com.example.hasee.weather.WeatherActivity;
+import com.example.hasee.weather.db.Updata;
 import com.example.hasee.weather.gson.Weather;
 import com.example.hasee.weather.util.HttpUtil;
 import com.example.hasee.weather.util.Utility;
 
+import org.litepal.crud.DataSupport;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -33,10 +38,25 @@ public class AutoUpdateService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        int anHour;
+        int Hour = 0;
         updateWeather();
         updateBingPic();
+        List<Updata> updatas = DataSupport.findAll(Updata.class);
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        int anHour = 8 * 60 * 60 * 1000; // 这是8小时的毫秒数
+        for(Updata updata:updatas) {
+            if (updata != null) {
+                int xiaoshi = updata.getXiaoshi();
+                int fenzhong = updata.getFenzhong();
+                int haomiao = updata.getHaomiao();
+                Hour += xiaoshi*60*60*1000 + fenzhong*60*1000 + haomiao;
+            }
+        }
+        if(Hour != 0) {
+            anHour = Hour;
+        }else {
+            anHour = 8 * 60 * 60 * 1000; // 这是8小时的毫秒数
+        }
         long triggerAtTime = SystemClock.elapsedRealtime() + anHour;
         Intent i = new Intent(this, AutoUpdateService.class);
         PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
@@ -49,6 +69,7 @@ public class AutoUpdateService extends Service {
      * 更新天气信息。
      */
     private void updateWeather(){
+       /* Log.d("Weather.class","11111111111111111111");*/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
         if (weatherString != null) {

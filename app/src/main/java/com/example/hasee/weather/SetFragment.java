@@ -12,20 +12,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hasee.weather.db.Updata;
+import com.example.hasee.weather.db.userinfo;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.List;
+
 public class SetFragment extends Fragment implements View.OnClickListener {
 
-    private TextView title_set;
     private Button backbutton;
     private Button button_log;
     private Button button_updata;
+    private List<userinfo> userinfos;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.set, container, false);
-        title_set = (TextView) view.findViewById(R.id.title_set);
         backbutton = (Button) view.findViewById(R.id.back_button);
         button_log = (Button) view.findViewById(R.id.button_log);
         button_updata = (Button) view.findViewById(R.id.button_update);
+
         return view;
     }
 
@@ -40,19 +47,28 @@ public class SetFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        userinfos = DataSupport.findAll(userinfo.class);
         switch (v.getId()) {
             case R.id.back_button:
-                /*replaceFragment(new ChooseAreaFragment(),0);*/
                 Intent intent_back = new Intent(getContext(), MainActivity.class);
                 startActivity(intent_back);
-                /*Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 break;
             case R.id.button_log:
                 Intent intent_log = new Intent(getContext(), LoginActivity.class);
                 startActivity(intent_log);
                 break;
             case R.id.button_update:
-                Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();
+                int i = 0;
+                for(userinfo userinfo:userinfos) {
+                    if(userinfo.getState().equals("in")) {
+                        Intent intent_updata = new Intent(getContext(), UpdataActivity.class);
+                        startActivity(intent_updata);
+                    }
+                    i++;
+                }
+                if(i == userinfos.size()) {
+                    Toast.makeText(getContext(), "请先登陆!", Toast.LENGTH_SHORT).show();
+                }
                 break;
             default:
                 break;

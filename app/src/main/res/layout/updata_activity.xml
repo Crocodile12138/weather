@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdataActivity">
+
+    <TextView
+        android:id = "@+id/shezhi"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="设置:"/>
+
+    <EditText
+        android:id = "@+id/edit_xiaoshi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="小时"/>
+
+    <TextView
+        android:id = "@+id/xiaoshi"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="小时"/>
+
+    <EditText
+        android:id = "@+id/edit_fenzhong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="分钟"/>
+
+    <TextView
+        android:id = "@+id/fenzhong"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="分钟"/>
+
+    <EditText
+        android:id = "@+id/edit_haomiao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="毫秒"/>
+
+    <TextView
+        android:id = "@+id/haomiao"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="毫秒后自动更新"/>
+
+    <Button
+        android:id = "@+id/button1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="设置"/>
+
+</LinearLayout>

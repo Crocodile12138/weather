@@ -2,6 +2,8 @@ package com.example.hasee.weather;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.hasee.weather.db.userinfo;
@@ -27,15 +30,10 @@ public class UserFragment extends Fragment implements View.OnClickListener{
     private Button button_dl;
     private Button button_zhc;
     private Button backbutton;
-    private Button nav_button;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private CheckBox rememberPass;
-    private int position;
-    private TextView textView;
-
-    private HeadImageAdapter adapter;
-    private List<HeadImage> headimageList = new ArrayList<>();
+    byte[] head;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,14 +45,9 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         backbutton = (Button) view.findViewById(R.id.back_button);
         button_dl = (Button) view.findViewById(R.id.button_dl);
         button_zhc = (Button) view.findViewById(R.id.button_zhc);
-        nav_button = (Button) view.findViewById(R.id.nav_button);
-        /*textView = (TextView) view.findViewById(R.id.position);*/
-        textView = (TextView) view.findViewById(R.id.position);
 
-        adapter = new HeadImageAdapter(headimageList);
-
-        button_dl.setVisibility(View.VISIBLE);
-        button_zhc.setVisibility(View.VISIBLE);
+        /*button_dl.setVisibility(View.VISIBLE);
+        button_zhc.setVisibility(View.VISIBLE);*/
 
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         boolean isRemember = pref.getBoolean("remember_password",false);
@@ -84,12 +77,15 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         String input_mm = edit_password.getText().toString();
         switch (v.getId()) {
             case R.id.back_button:
-                replaceFragment(new SetFragment(),0);
+                Intent intent_back = new Intent(getActivity(),SetActivity.class);
+                startActivity(intent_back);
                 break;
             case R.id.button_dl:
+                userinfo user = new userinfo();
+                user.setState("out");
+                user.updateAll();
                 List<userinfo> userinfos = DataSupport.findAll(userinfo.class);
                 for(userinfo userinfo:userinfos) {
-                    position = userinfo.getPosition();
                     if(userinfo.getName().equals(input_yhm)) {
                         if(userinfo.getPassword().equals(input_mm)) {
                             editor = pref.edit();
@@ -102,11 +98,15 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                             }
 
                             editor.apply();
-                            userinfo.setState("IN");
+                            userinfo.setState("in");
+                            userinfo.save();
                            /* nav_button.setBackground(R.id.head);*/
                           /* nav_button.setBackgroundResource(getId());*/
-                            nav_button.setBackgroundResource(adapter.getImageId(position));
-                            Intent intent_dl = new Intent(getContext(), MainActivity.class);
+                            head = userinfo.getHead();
+                            /*Bitmap bitmap = BitmapFactory.decodeByteArray(head,0,head.length);
+                            headpicture.setImageBitmap(bitmap);*/
+                            Intent intent_dl = new Intent(getActivity(),WeatherActivity.class);
+                            intent_dl.putExtra("headPicture",head);
                             startActivity(intent_dl);
                         }else {
                             Toast.makeText(getContext(),"密码错误!",Toast.LENGTH_SHORT).show();
@@ -117,22 +117,11 @@ public class UserFragment extends Fragment implements View.OnClickListener{
                 }
                 break;
             case R.id.button_zhc:
-                button_dl.setVisibility(View.GONE);
-                button_zhc.setVisibility(View.GONE);
-                replaceFragment(new registerFragment(),1);
+                Intent intent_zhc = new Intent(getActivity(),RegisterActivity.class);
+                startActivity(intent_zhc);
                 break;
             default:
                 break;
         }
-    }
-
-    private void replaceFragment(Fragment fragment,int i) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.choose_area_fragment,fragment);
-        if(i == 1) {
-            transaction.addToBackStack(null);
-        }
-        transaction.commit();
     }
 }

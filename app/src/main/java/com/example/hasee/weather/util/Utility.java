@@ -2,10 +2,13 @@ package com.example.hasee.weather.util;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.example.hasee.weather.MainActivity;
 import com.example.hasee.weather.db.City;
 import com.example.hasee.weather.db.County;
 import com.example.hasee.weather.db.Province;
+import com.example.hasee.weather.gson.Tranweather;
 import com.example.hasee.weather.gson.Weather;
 import com.google.gson.Gson;
 
@@ -100,6 +103,18 @@ public class Utility {
             JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
             String weatherContent = jsonArray.getJSONObject(0).toString();
             return new Gson().fromJson(weatherContent, Weather.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Tranweather mtranweather(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather6");
+            String weatherContent = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent, Tranweather.class);
         } catch (Exception e) {
             e.printStackTrace();
         }

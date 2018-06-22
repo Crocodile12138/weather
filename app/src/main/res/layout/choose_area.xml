@@ -48,7 +48,7 @@
             android:textSize="17sp" />
 
         <Button
-            android:id = "@+id/button_night"
+            android:id = "@+id/button_location"
             android:layout_height="40dp"
             android:layout_width="175dp"
             android:layout_alignParentBottom="true"

@@ -2,25 +2,18 @@ package com.example.hasee.weather;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.example.hasee.weather.db.userinfo;
 import org.litepal.crud.DataSupport;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserFragment extends Fragment implements View.OnClickListener{
@@ -46,9 +39,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
         button_dl = (Button) view.findViewById(R.id.button_dl);
         button_zhc = (Button) view.findViewById(R.id.button_zhc);
 
-        /*button_dl.setVisibility(View.VISIBLE);
-        button_zhc.setVisibility(View.VISIBLE);*/
-
         pref = PreferenceManager.getDefaultSharedPreferences(getContext());
         boolean isRemember = pref.getBoolean("remember_password",false);
         if(isRemember){    //将账号密码设置到文本框中
@@ -58,7 +48,6 @@ public class UserFragment extends Fragment implements View.OnClickListener{
             edit_password.setText(password);
             rememberPass.setChecked(true);
         }
-
         return view;
     }
 

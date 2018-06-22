@@ -26,7 +26,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.example.hasee.weather.db.userinfo;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +41,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public static final int CHOOSE_PHOTO = 2;
     byte[] images;
     private Uri imageUri;
-
 
     private byte[] img(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

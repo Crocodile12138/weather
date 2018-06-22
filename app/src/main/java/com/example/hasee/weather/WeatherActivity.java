@@ -6,14 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Picture;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -21,14 +18,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.hasee.weather.db.userinfo;
 import com.example.hasee.weather.gson.Forecast;
@@ -37,16 +31,12 @@ import com.example.hasee.weather.gson.Weather;
 import com.example.hasee.weather.service.AutoUpdateService;
 import com.example.hasee.weather.util.HttpUtil;
 import com.example.hasee.weather.util.Utility;
-
 import org.litepal.crud.DataSupport;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -54,40 +44,24 @@ import okhttp3.Response;
 public class WeatherActivity extends AppCompatActivity {
 
     public DrawerLayout drawerLayout;
-
     public SwipeRefreshLayout swipeRefresh;
-
     private ScrollView weatherLayout;
-
     private ImageView head;
-
     private TextView titleCity;
-
     private TextView titleUpdateTime;
-
     private TextView degreeText;
-
     private TextView weatherInfoText;
-
     private LinearLayout forecastLayout;
-
     private TextView aqiText;
-
     private TextView pm25Text;
-
     private TextView comfortText;
-
     private TextView carWashText;
-
     private TextView sportText;
-
     private ImageView bingPicImg;
-
     private String cityId;
     private String cityweatherId;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor3;
-
     private String mWeatherId;
     private  File file;
     byte[] headPicture;
@@ -199,15 +173,6 @@ public class WeatherActivity extends AppCompatActivity {
             head.setImageBitmap(bitmap);
         }
 
-        /*List<userinfo> userinfos = DataSupport.findAll(userinfo.class);
-        for(userinfo user:userinfos) {
-            if(user.getState().equals("in")) {
-                headPicture = user.getHead();
-                Bitmap bitmap = BitmapFactory.decodeByteArray(headPicture,0,headPicture.length);
-                head.setImageBitmap(bitmap);
-            }
-        }*/
-
         sharedPreferences = getSharedPreferences("prefer", MODE_PRIVATE);
         editor3 = sharedPreferences.edit();
         File file1 = new File("/data/data/com.example.hasee.weather/shared_prefs/prefer.xml");
@@ -291,7 +256,6 @@ public class WeatherActivity extends AppCompatActivity {
                     }
                     i++;
                 }
-                /*Log.d("WeatherActivity","i = " +i) ;*/
                 if(i == userinfoList.size()) {
                     Toast.makeText(WeatherActivity.this, "请先登陆!", Toast.LENGTH_SHORT).show();
                 }

@@ -8,23 +8,13 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.example.hasee.weather.R;
-import com.example.hasee.weather.WeatherActivity;
 import com.example.hasee.weather.db.Updata;
 import com.example.hasee.weather.gson.Weather;
 import com.example.hasee.weather.util.HttpUtil;
 import com.example.hasee.weather.util.Utility;
-
 import org.litepal.crud.DataSupport;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;

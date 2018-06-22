@@ -9,7 +9,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
@@ -21,7 +20,6 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +31,9 @@ public class Location extends AppCompatActivity {
     private BaiduMap baiduMap;
     private boolean isFirstLocate = true;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
         mLocationClient = new LocationClient(getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
@@ -143,24 +138,6 @@ public class Location extends AppCompatActivity {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-//            StringBuilder currentPosition = new StringBuilder();
-//            currentPosition.append("纬度：").append(location.getLatitude()).append("\n");
-//            currentPosition.append("经线：").append(location.getLongitude()).append("\n");
-//            currentPosition.append("国家：").append(location.getCountry()).append("\n");
-//            currentPosition.append("省：").append(location.getProvince()).append("\n");
-//            currentPosition.append("市：").append(location.getCity()).append("\n");
-//            currentPosition.append("区：").append(location.getDistrict()).append("\n");
-//            currentPosition.append("街道：").append(location.getStreet()).append("\n");
-//            currentPosition.append("定位方式：");
-//            if (location.getLocType() == BDLocation.TypeGpsLocation) {
-//                currentPosition.append("GPS");
-//            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {
-//                currentPosition.append("网络");
-//            }
-//            positionText.setText(currentPosition);
-//            Log.d("MainActivity", "mylog:城市"+location.getCity());
-//            Log.d("MainActivity", "mylog:经线"+location.getLongitude());
-//            Log.d("MainActivity", "mylog:纬度"+location.getLatitude());
             if(isFirstLocate) {
                 Toast.makeText(Location.this, "城市:" + location.getCity() + "经" + location.getLongitude() + "纬度" + location.getLatitude()
                         , Toast.LENGTH_SHORT).show();

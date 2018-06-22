@@ -39,27 +39,16 @@ import okhttp3.Response;
 
 public class ChooseAreaFragment extends Fragment implements View.OnClickListener  {
 
-    private static final String TAG = "ChooseAreaFragment";
-
     public static final int LEVEL_PROVINCE = 0;
-
     public static final int LEVEL_CITY = 1;
-
     public static final int LEVEL_COUNTY = 2;
-
     private ProgressDialog progressDialog;
-
     private TextView titleText;
-
     private Button backButton;
     private Button setButton;
     private Button locationButton;
-
     private ListView listView;
-
     private ArrayAdapter<String> adapter;
-
-
     private List<String> dataList = new ArrayList<>();
 
     /**
@@ -161,7 +150,6 @@ public class ChooseAreaFragment extends Fragment implements View.OnClickListener
                 startActivity(intent_set);
                 break;
             case R.id.button_location:
-                /*Toast.makeText(getContext(),"点击按钮",Toast.LENGTH_SHORT).show();*/
                 Intent intent_location = new Intent(getContext(),Location.class);
                 startActivity(intent_location);
                 break;

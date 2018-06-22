@@ -2,8 +2,6 @@ package com.example.hasee.weather.db;
 
 import org.litepal.crud.DataSupport;
 
-import java.util.List;
-
 public class Updata extends DataSupport {
     private int xiaoshi;
     private int fenzhong;

@@ -49,7 +49,7 @@ public class AutoUpdateService extends Service {
                 int xiaoshi = updata.getXiaoshi();
                 int fenzhong = updata.getFenzhong();
                 int haomiao = updata.getHaomiao();
-                Hour += xiaoshi*60*60*1000 + fenzhong*60*1000 + haomiao;
+                Hour += xiaoshi*60*60*1000 + fenzhong*60*1000 + haomiao*1000;
             }
         }
         if(Hour != 0) {

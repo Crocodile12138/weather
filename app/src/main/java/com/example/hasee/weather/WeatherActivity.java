@@ -234,12 +234,12 @@ public class WeatherActivity extends AppCompatActivity {
             showWeatherInfo(weather);
         } else {
             if(cityId != null) {
-                Log.d("MainActivity", "mylog应该是长沙: "+cityId);
-                Log.d("MainAcyivity","mylogjson开始");
+                /*Log.d("MainActivity", "mylog应该是长沙: "+cityId);
+                Log.d("MainAcyivity","mylogjson开始");*/
                 requestWeather1(cityId);
-                Log.d("MainActivity","mylogjson成功");
+                /*Log.d("MainActivity","mylogjson成功");*/
                 cityweatherId = sharedPreferences.getString("location",null);
-                Log.d("MainActivity","这是本地地址"+cityweatherId);
+                /*Log.d("MainActivity","这是本地地址"+cityweatherId);*/
                 weatherLayout.setVisibility(View.INVISIBLE);
                 requestWeather(cityweatherId);
             } else {
@@ -287,9 +287,11 @@ public class WeatherActivity extends AppCompatActivity {
                         if (file != null && file.exists()) {
                             shareImg("分享", "分享", "分享", fileTurnUri(file));
                         }
+                        break;
                     }
                     i++;
                 }
+                /*Log.d("WeatherActivity","i = " +i) ;*/
                 if(i == userinfoList.size()) {
                     Toast.makeText(WeatherActivity.this, "请先登陆!", Toast.LENGTH_SHORT).show();
                 }

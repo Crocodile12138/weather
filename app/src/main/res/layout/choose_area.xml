@@ -37,10 +37,16 @@
         android:layout_height="match_parent"
         android:layout_marginTop="52dp" />
 
+    <LinearLayout
+        android:id = "@+id/line"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true" >
         <Button
             android:id = "@+id/button_set"
             android:layout_height="40dp"
-            android:layout_width="175dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:background="@color/colorPrimary"
@@ -50,11 +56,13 @@
         <Button
             android:id = "@+id/button_location"
             android:layout_height="40dp"
-            android:layout_width="175dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:background="@color/colorPrimary"
             android:text="定位"
             android:textSize="17sp" />
+    </LinearLayout>
 
 </RelativeLayout>
